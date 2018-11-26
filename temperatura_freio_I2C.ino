@@ -93,12 +93,17 @@ float temperaturaCelcius(int address) {
   int data_low = 0;
   int data_high = 0;
   int pec = 0;
+  unsigned char retorno;
 
-  if(i2c_write(dev+I2C_WRITE) == '1'){
+  retorno = i2c_readAck();
+  Serial.println(retorno);
+  if((i2c_start(dev+I2C_WRITE)) == 1){
     Serial.println("Dispositivo não encontrado");
     return 0;
+    Serial.println("nao encontrou");
   }
   else{
+    Serial.println("encontrou");
     // Write
     i2c_start_wait(dev+I2C_WRITE);
     i2c_write(0x07);
